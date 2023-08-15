@@ -10,47 +10,16 @@ def generate_pass():
                'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
                'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '+', '=']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-    final = ''
-    number_count = 6
-    letter_count = 4
-    symbol_count = 2
-    characters = [numbers, letters, symbols]
+    password_numbers = [random.choice(numbers) for _ in range(8)]
+    password_letters = [random.choice(letters) for _ in range(5)]
+    password_symbols = [random.choice(symbols) for _ in range(2)]
 
-    pass_result = []
+    password_list = password_letters + password_symbols + password_numbers
+    random.shuffle(password_list)
 
-    for _ in range(13):
-
-        char_index = random.randint(0, 2)
-
-        if number_count == 0 and letter_count == 0 and symbol_count == 0:
-            for char in pass_result:
-                final += char
-        elif (char_index == 0) and (number_count == 0):
-            char_index = 1
-            if letter_count == 0:
-                char_index = 2
-
-        elif (char_index == 1) and (letter_count == 0):
-            char_index = 0
-            if number_count == 0:
-                char_index = 2
-
-        elif (char_index == 2) and (symbol_count == 0):
-            char_index = 1
-            if letter_count == 0:
-                char_index = 0
-        char_second_index = random.randint(0, len(characters[char_index]) - 1)
-        pass_result.append(characters[char_index][char_second_index])
-
-        if char_index == 0:
-            number_count -= 1
-        elif char_index == 1:
-            letter_count -= 1
-        else:
-            symbol_count -= 1
-
+    final = "".join(password_list)
     pass_entry.insert(0, final)
 
 
